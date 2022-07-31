@@ -1,14 +1,14 @@
 import React from 'react';
-import DatePicker from './components/dates/DatePicker';
 import Header from './components/header/Header';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import Dates from './components/dates/Dates';
 
 const App = () => {
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Header />
-      <DatePicker />
+      <Dates />
     </LocalizationProvider>
   );
 };
