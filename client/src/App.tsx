@@ -6,6 +6,8 @@ import Dates from './components/dates/Dates';
 import IpcaTable, { IpcaData } from './components/table/IpcaTable';
 import useHttp from './hooks/use-http';
 import { formatDate, getOneYearBefore } from './utils/lib';
+import { Typography } from '@mui/material';
+import { MESSAGES } from './utils/constants';
 
 interface IpcaResponse {
   soma: number;
@@ -48,7 +50,11 @@ const App = () => {
         endDate={endDate}
         setEndDate={setEndDate}
       />
-      <IpcaTable ipcaData={ipcaData} ipcaSum={ipcaSum} />
+      {isLoading && <Typography>{MESSAGES.loading}</Typography>}
+      {error && <Typography>{MESSAGES.error}</Typography>}
+      {!isLoading && !error && (
+        <IpcaTable ipcaData={ipcaData} ipcaSum={ipcaSum} />
+      )}
     </LocalizationProvider>
   );
 };

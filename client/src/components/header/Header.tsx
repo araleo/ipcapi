@@ -1,7 +1,7 @@
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { COLORS, SUBTITLE, TITLE, TOOLTIP } from '../../utils/constants';
+import { COLORS, SUBTITLE, TITLE, MESSAGES } from '../../utils/constants';
 import styles from './Header.module.css';
 
 const Header = () => {
@@ -18,9 +18,11 @@ const Header = () => {
       </Typography>
       <Typography align='center'>
         {SUBTITLE}
-        <Tooltip title={TOOLTIP} className={styles.button}>
-          <HelpOutlineOutlinedIcon fontSize='small' />
-        </Tooltip>
+        <span className={styles.button}>
+          <Tooltip title={MESSAGES.tooltip}>
+            <HelpOutlineOutlinedIcon fontSize='small' />
+          </Tooltip>
+        </span>
       </Typography>
     </header>
   );
