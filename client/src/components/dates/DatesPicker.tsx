@@ -18,15 +18,14 @@ const DatesPicker: React.FC<IProps> = ({ label, error, value, setValue }) => {
       value={value}
       minDate={getEarliestDate()}
       maxDate={new Date()}
-      onChange={(newValue) => {
-        setValue(newValue);
-      }}
+      onChange={setValue}
       renderInput={(params) => (
         <TextField
           {...params}
           error={!!error}
           helperText={error}
           data-testid='dates-text-id'
+          style={{ marginBottom: '1rem' }}
         />
       )}
     />

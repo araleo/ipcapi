@@ -6,11 +6,22 @@ import {
   getOneYearLater,
 } from '../../utils/lib';
 import DatesPicker from './DatesPicker';
+import styles from './Dates.module.css';
 
-const Dates = () => {
-  const [startDate, setStartDate] = useState<Date | null>(getOneYearBefore());
+interface IProps {
+  startDate: Date | null;
+  setStartDate: (newDate: Date | null) => void;
+  endDate: Date | null;
+  setEndDate: (newDate: Date | null) => void;
+}
+
+const Dates: React.FC<IProps> = ({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+}) => {
   const [startDateError, setStartDateError] = useState<string>('');
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [endDateError, setEndDateError] = useState<string>('');
   const [dualError, setDualError] = useState<string>('');
 
@@ -55,7 +66,7 @@ const Dates = () => {
   };
 
   return (
-    <>
+    <div className={styles.datesContainer}>
       <DatesPicker
         label={LABELS.startDate}
         error={dualError || startDateError}
@@ -68,7 +79,7 @@ const Dates = () => {
         value={endDate}
         setValue={handleEndDateChange}
       />
-    </>
+    </div>
   );
 };
 
