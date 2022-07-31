@@ -2,6 +2,8 @@ export const TITLE = 'IPCAPI';
 
 export const SUBTITLE = 'Consulte o IPCA em um período personalizado';
 
+export const TOOLTIP = 'Nossos dados são extraídos diariamente da API do BCB.'
+
 export const LABELS = {
   date: 'Data',
   endDate: 'Data de término',

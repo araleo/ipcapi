@@ -2,3 +2,9 @@
   width: 70vw;
   margin: auto;
 }
+
+@media only screen and (min-width: 800px) {
+  .table {
+    max-width: 700px;
+  }
+}
