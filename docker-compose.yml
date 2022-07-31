@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  api:
+    image: mcs-api
+    container_name: mcs_api_container
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+
