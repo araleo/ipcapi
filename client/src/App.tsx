@@ -17,7 +17,10 @@ interface IpcaResponse {
 
 const App = () => {
   const [startDate, setStartDate] = useState<Date | null>(getOneYearBefore());
+  const [startDateError, setStartDateError] = useState<string>('');
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [endDateError, setEndDateError] = useState<string>('');
+  const [dualError, setDualError] = useState<string>('');
   const [ipcaData, setIpcaData] = useState<IpcaData[]>([]);
   const [ipcaSum, setIpcaSum] = useState<number | null>(null);
 
@@ -29,7 +32,8 @@ const App = () => {
       setIpcaData(res.data);
     };
 
-    if (startDate !== null && endDate !== null) {
+    const hasError = !!startDateError || !!endDateError || !!dualError;
+    if (startDate !== null && endDate !== null && !hasError) {
       sendRequest(
         {
           url: 'http://localhost:8000/ipca',
@@ -40,7 +44,14 @@ const App = () => {
         setIpca
       );
     }
-  }, [sendRequest, startDate, endDate]);
+  }, [
+    sendRequest,
+    startDate,
+    endDate,
+    startDateError,
+    endDateError,
+    dualError,
+  ]);
 
   const handleDownload = () => {
     const downloadExcel = (res: any) => {
@@ -53,7 +64,8 @@ const App = () => {
       link.parentNode!.removeChild(link);
     };
 
-    if (startDate !== null && endDate !== null) {
+    const hasError = !!startDateError || !!endDateError || !!dualError;
+    if (startDate !== null && endDate !== null && !hasError) {
       sendRequest(
         {
           url: 'http://localhost:8000/ipca?format=xlsx',
@@ -73,8 +85,14 @@ const App = () => {
       <Dates
         startDate={startDate}
         setStartDate={setStartDate}
+        startDateError={startDateError}
+        setStartDateError={setStartDateError}
         endDate={endDate}
         setEndDate={setEndDate}
+        endDateError={endDateError}
+        setEndDateError={setEndDateError}
+        dualError={dualError}
+        setDualError={setDualError}
       />
       <Download handleDownload={handleDownload} />
       {isLoading && <Typography>{MESSAGES.loading}</Typography>}

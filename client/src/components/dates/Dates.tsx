@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ERRORS, LABELS } from '../../utils/constants';
 import {
   getEarliestDate,
@@ -11,20 +10,28 @@ import styles from './Dates.module.css';
 interface IProps {
   startDate: Date | null;
   setStartDate: (newDate: Date | null) => void;
+  startDateError: string;
+  setStartDateError: (e: string) => void;
   endDate: Date | null;
   setEndDate: (newDate: Date | null) => void;
+  endDateError: string;
+  setEndDateError: (e: string) => void;
+  dualError: string;
+  setDualError: (e: string) => void;
 }
 
 const Dates: React.FC<IProps> = ({
   startDate,
   setStartDate,
+  startDateError,
+  setStartDateError,
   endDate,
   setEndDate,
+  endDateError,
+  setEndDateError,
+  dualError,
+  setDualError,
 }) => {
-  const [startDateError, setStartDateError] = useState<string>('');
-  const [endDateError, setEndDateError] = useState<string>('');
-  const [dualError, setDualError] = useState<string>('');
-
   const handleStartDateChange = (newValue: Date | null) => {
     if (newValue !== null) {
       checkStartDateError(newValue);
