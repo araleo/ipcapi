@@ -15,6 +15,11 @@ interface IpcaResponse {
   data: IpcaData[];
 }
 
+const API_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'http://3.16.137.212:8000/ipca'
+    : 'http://localhost:8000/ipca';
+
 const App = () => {
   const [startDate, setStartDate] = useState<Date | null>(getOneYearBefore());
   const [startDateError, setStartDateError] = useState<string>('');
@@ -36,7 +41,7 @@ const App = () => {
     if (startDate !== null && endDate !== null && !hasError) {
       sendRequest(
         {
-          url: 'http://localhost:8000/ipca',
+          url: API_URL,
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: { start: formatDate(startDate), end: formatDate(endDate) },
@@ -68,7 +73,7 @@ const App = () => {
     if (startDate !== null && endDate !== null && !hasError) {
       sendRequest(
         {
-          url: 'http://localhost:8000/ipca?format=xlsx',
+          url: API_URL + '?format=xlsx',
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: { start: formatDate(startDate), end: formatDate(endDate) },

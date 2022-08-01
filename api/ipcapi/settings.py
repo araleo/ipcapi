@@ -8,9 +8,28 @@ SECRET_KEY = os.environ.get('DJANGO_KEY')
 
 DEBUG = True if os.environ.get('DJANGO_ENV') == 'DEV' else False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost',
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://3.16.137.212',
+    'http://0.0.0.0',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:80',
+    'http://localhost:443',
+    'http://3.16.137.212',
+    'http://3.16.137.212:3000',
+    'https://3.16.137.212',
+    'http://0.0.0.0',
+    'http://localhost',
+    'http://127.0.0.1',
+]
 
 INSTALLED_APPS = [
+    'corsheaders',
     'ipca.apps.IpcaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,6 +41,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,24 +71,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ipcapi.wsgi.application'
 
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'HOST': os.environ.get('RDS_HOSTNAME'),
-            'PORT': os.environ.get('RDS_PORT'),
-            'NAME': os.environ.get('RDS_DB_NAME'),
-            'USER': os.environ.get('RDS_USERNAME'),
-            'PASSWORD': os.environ.get('RDS_PASSWORD'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 REST_FRAMEWORK = {
     'URL_FORMAT_OVERRIDE': None
