@@ -10,6 +10,8 @@ DEBUG = True if os.environ.get('DJANGO_ENV') == 'DEV' else False
 
 ALLOWED_HOSTS = [
     'localhost',
+    'api',
+    'http://api:8000/'
     'http://localhost',
     'http://127.0.0.1',
     'http://3.16.137.212',
