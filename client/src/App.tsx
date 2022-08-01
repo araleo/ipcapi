@@ -9,16 +9,12 @@ import { formatDate, getOneYearBefore } from './utils/lib';
 import { Typography } from '@mui/material';
 import { MESSAGES } from './utils/constants';
 import Download from './components/download/Download';
+import { API_URL } from './config/config';
 
 interface IpcaResponse {
   soma: number;
   data: IpcaData[];
 }
-
-const API_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'http://ec2-3-16-137-212.us-east-2.compute.amazonaws.com/api/v1/ipca'
-    : 'http://localhost:8000/ipca';
 
 const App = () => {
   const [startDate, setStartDate] = useState<Date | null>(getOneYearBefore());

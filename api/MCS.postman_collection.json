@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "20e1ef71-2e6c-4b62-86c5-aebd8c5d3365",
+		"name": "MCS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-3-16-137-212.us-east-2.compute.amazonaws.com/api/v1/ipca",
+					"protocol": "http",
+					"host": [
+						"ec2-3-16-137-212",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ipca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"start\": \"01/01/2021\",\n    \"end\": \"01/12/2021\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-3-16-137-212.us-east-2.compute.amazonaws.com/api/v1/ipca?format=json",
+					"protocol": "http",
+					"host": [
+						"ec2-3-16-137-212",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ipca"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,5 +1,5 @@
 # Doing this because the free AWS EC2 machine
-# has too little RAM to build the app.
+# has too little RAM to build the app over Docker.
 # Usually we would use the commented lines below.
 FROM nginx:1.20 as production-stage
 
