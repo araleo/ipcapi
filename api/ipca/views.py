@@ -1,17 +1,21 @@
 from datetime import date
+import io
+from typing import List
 
+from django.http import HttpResponse
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.status import *
 from rest_framework.views import APIView
+import xlsxwriter
 
 from .models import IpcaData
 from .serializers import IpcaDataSerializer
 from .utils.constants import MESSAGES
-from .utils.lib import get_date_from_request, str_to_decimal
+from .utils.lib import excel_response, get_date_from_request, str_to_decimal
 
 
-def bad_request_response(message: str):
+def bad_request_response(message: str) -> Response:
     res = {"error": message}
     return Response(data=res, status=HTTP_400_BAD_REQUEST)
 
@@ -50,6 +54,8 @@ class IpcaDataList(APIView):
 
         format = request.query_params.get("format", "json")
         if format == "xlsx":
-            print("EXCEL")
-        print("JSON")
+            sheet_data = [["data", "valor"]]
+            sheet_data.extend([[e["data"], e["valor"]] for e in serializer.data])
+            return excel_response(sheet_data)
+
         return Response(data=data, status=HTTP_200_OK)
