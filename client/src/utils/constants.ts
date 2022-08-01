@@ -4,6 +4,7 @@ export const SUBTITLE = 'Consulte o IPCA em um período personalizado';
 
 export const LABELS = {
   date: 'Data',
+  download: 'Exportar Excel',
   endDate: 'Data de término',
   startDate: 'Data de início',
   sum: 'Soma',

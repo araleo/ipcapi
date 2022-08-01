@@ -8,6 +8,7 @@ import useHttp from './hooks/use-http';
 import { formatDate, getOneYearBefore } from './utils/lib';
 import { Typography } from '@mui/material';
 import { MESSAGES } from './utils/constants';
+import Download from './components/download/Download';
 
 interface IpcaResponse {
   soma: number;
@@ -41,6 +42,31 @@ const App = () => {
     }
   }, [sendRequest, startDate, endDate]);
 
+  const handleDownload = () => {
+    const downloadExcel = (res: any) => {
+      const url = window.URL.createObjectURL(new Blob([res]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'ipca.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode!.removeChild(link);
+    };
+
+    if (startDate !== null && endDate !== null) {
+      sendRequest(
+        {
+          url: 'http://localhost:8000/ipca?format=xlsx',
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: { start: formatDate(startDate), end: formatDate(endDate) },
+          noJson: true,
+        },
+        downloadExcel
+      );
+    }
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Header />
@@ -50,6 +76,7 @@ const App = () => {
         endDate={endDate}
         setEndDate={setEndDate}
       />
+      <Download handleDownload={handleDownload} />
       {isLoading && <Typography>{MESSAGES.loading}</Typography>}
       {error && <Typography>{MESSAGES.error}</Typography>}
       {!isLoading && !error && (

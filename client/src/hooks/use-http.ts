@@ -5,6 +5,7 @@ interface RequestConfig {
   method?: string;
   headers?: { [key: string]: string };
   body?: { [key: string]: string };
+  noJson?: boolean;
 }
 
 type ApplyData = (arg: any) => void;
@@ -29,7 +30,8 @@ const useHttp = () => {
         if (!response.ok) {
           throw new Error('Request failed!');
         }
-        const data = await response.json();
+        const blob = requestConfig.noJson === true;
+        const data = blob ? await response.blob() : await response.json();
         applyData(data);
       } catch (err) {
         if (typeof err === 'string') {
